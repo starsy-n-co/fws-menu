@@ -1,5 +1,4 @@
-<style>
-        #fws-menu {
+#fws-menu {
           position: absolute;
           z-index: 9;
           background-color: #f1f1f1;
@@ -26,4 +25,3 @@
           width: 180px;
           font-family: 'Lato', sans-serif;
         }
-    </style>
