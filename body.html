@@ -1,0 +1,80 @@
+<div id="fws-menu">
+          <div id="menuheader">FWS</div>
+          <p>Thank you for using FWS!</p>
+            <p>right shift to toggle view</p>
+          <div id="buttons">
+              <button id="destroy-fws" onclick="destroy()">destroy gui</button>
+              <button id="cloak-fws" onclick="cloak()">cloak tab</button>
+          </div>
+        </div>
+        
+        <script>
+            dragElement(document.getElementById("fws-menu"));
+            
+            var menu = document.getElementById("fws-menu");
+            
+            function destroy(){
+                menu.remove();
+            }
+            
+            function cloak(){
+                        var l = document.querySelector("link[rel*='icon']") || document.createElement('link');
+                        l.type = 'image/x-icon';
+                        l.rel = 'shortcut icon';
+                        l.href = 'https://google.com/favicon.ico';
+                        document.getElementsByTagName('head')[0].appendChild(l);
+                        document.title = 'Google';
+            }
+            
+            function toggle(){
+                if (menu.style.display === "none") {
+                    menu.style.display = "block";
+                } else {
+                    menu.style.display = "none";
+                }
+            }
+                
+            document.addEventListener('keydown', (event) => {
+              var name = event.key;
+              var code = event.code;
+              if (code == "ShiftRight"){
+                  toggle();
+              } else {
+                  return;
+              }
+            }, false);
+
+            function dragElement(elmnt) {
+              var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+              if (document.getElementById("menuheader")) {
+                document.getElementById("menuheader").onmousedown = dragMouseDown;
+              } else {
+                elmnt.onmousedown = dragMouseDown;
+              }
+
+              function dragMouseDown(e) {
+                e = e || window.event;
+                e.preventDefault();
+                pos3 = e.clientX;
+                pos4 = e.clientY;
+                document.onmouseup = closeDragElement;
+                document.onmousemove = elementDrag;
+              }
+
+              function elementDrag(e) {
+                e = e || window.event;
+                e.preventDefault();
+                pos1 = pos3 - e.clientX;
+                pos2 = pos4 - e.clientY;
+                pos3 = e.clientX;
+                pos4 = e.clientY;
+                elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+                elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+              }
+
+              function closeDragElement() {
+                document.onmouseup = null;
+                document.onmousemove = null;
+              }
+            }
+        </script>
